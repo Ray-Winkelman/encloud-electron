@@ -1,6 +1,13 @@
+// Third party NPM modules.
 const electron = require('electron');
 const express = require('express');
+
+// Main controller.
+const controller = require('./lib/controller.js');
+
+// The port express will use to serve views.
 const port = 3000;
+
 
 /* --- Electron Injection Point --- */
 const {app, BrowserWindow} = electron;
@@ -28,7 +35,9 @@ e.use(express.static(__dirname));
 e.set('view engine', 'ejs');
 
 
-e.listen(3000, function () {
+e.listen(port, function () {
+
+  controller.dbTest();
   console.log(`Express is listening on port ${port}.`)
 })
 
