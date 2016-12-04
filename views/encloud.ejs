@@ -3,11 +3,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>EnCloud</title>
+
+  <link rel="stylesheet" type="text/css" href="/bootstrap-3.3.7/css/bootstrap.min.css">
 </head>
 <body>
-  <p><bold>hahaha</bold></p>
-  <%= include(view) %>
-  <script>require('./index.js')</script>
+  <%- include(`partials/${view}`) %>
 </body>
 </html>
