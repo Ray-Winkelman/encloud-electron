@@ -1,16 +1,16 @@
 // Third party NPM modules.
-const electron = require('electron');
-const express = require('express');
+const _electron = require('electron');
+const _express = require('express');
 
 // Main controller.
-const controller = require('./lib/controller.js');
+const _controller = require('./lib/controller.js');
 
 // The port express will use to serve views.
-const port = 3000;
+const _port = 3000;
 
 
 /* --- Electron Injection Point --- */
-const {app, BrowserWindow} = electron;
+const {app, BrowserWindow} = _electron;
 
 app.on('ready', function() {
 
@@ -22,25 +22,27 @@ app.on('ready', function() {
     resizable: false,
   });
 
-  win.loadURL(`http://localhost:${port}/`);
+  win.loadURL(`http://localhost:${_port}/`);
   win.focus();
-
+  win.webContents.openDevTools();
 });
 
 
 /* --- Express Routes --- */
-var e = express();
+var e = _express();
 
-e.use(express.static(__dirname));
+e.use(_express.static(__dirname));
 e.set('view engine', 'ejs');
 
 
-e.listen(port, function () {
-
-  controller.dbTest();
-  console.log(`Express is listening on port ${port}.`)
+e.listen(_port, function () {
+  console.log(`Express is listening on port ${_port}.`)
 })
 
 e.get('/', function(req, res){
   res.render('encloud', {view: 'index'});
+});
+
+e.get('/files', function(req, res){
+  res.render('encloud', {view: 'files', files: _controller.getFiles()});
 });
